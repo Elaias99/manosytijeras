@@ -6,7 +6,7 @@ RUN a2enmod rewrite
 # Instalar dependencias del sistema + extensiones PHP típicas para Laravel + MySQL
 RUN apt-get update && apt-get install -y \
     git unzip libzip-dev libpng-dev libonig-dev libxml2-dev \
- && docker-php-ext-install pdo pdo_mysql zip \
+ && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Composer
