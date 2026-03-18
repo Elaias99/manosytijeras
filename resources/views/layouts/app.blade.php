@@ -143,15 +143,115 @@
             width: 100%;
         }
 
-        .page-loader__spinner{
-            width: 36px;
-            height: 36px;
-            border-radius: 999px;
-            border: 4px solid #e5e7eb;
-            border-top-color: #2563eb;
-            animation: spin .9s linear infinite;
-            flex: 0 0 auto;
+
+        .nav-btn{
+            color:#fff;
+            text-decoration:none;
+            font-weight:800;
+            font-size:14px;
+            padding:9px 12px;
+            border-radius:999px;
+            border:1px solid rgba(255,255,255,.10);
+            background: rgba(255,255,255,.06);
+            cursor:pointer;
+            font-family: inherit;
         }
+
+        .nav-btn:hover{
+            background: rgba(255,255,255,.12);
+        }
+
+
+
+
+
+
+
+        .page-loader__scissors{
+            position: relative;
+            width: 54px;
+            height: 54px;
+            flex: 0 0 auto;
+            animation: scissors-float 1.15s ease-in-out infinite;
+        }
+
+        .page-loader__scissors .blade{
+            position: absolute;
+            left: 24px;
+            top: 25px;
+            width: 22px;
+            height: 4px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #6b7280 0%, #111827 100%);
+            transform-origin: 2px 50%;
+        }
+
+        .page-loader__scissors .blade--top{
+            animation: blade-top .75s ease-in-out infinite alternate;
+        }
+
+        .page-loader__scissors .blade--bottom{
+            animation: blade-bottom .75s ease-in-out infinite alternate;
+        }
+
+        .page-loader__scissors .pivot{
+            position: absolute;
+            left: 20px;
+            top: 21px;
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: #2563eb;
+            border: 2px solid #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,.18);
+            z-index: 2;
+        }
+
+        .page-loader__scissors .handle{
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border: 3px solid #2563eb;
+            border-radius: 999px;
+            background: #fff;
+        }
+
+        .page-loader__scissors .handle--left{
+            left: 4px;
+            top: 12px;
+        }
+
+        .page-loader__scissors .handle--right{
+            left: 4px;
+            top: 28px;
+        }
+
+        @keyframes blade-top{
+            from { transform: rotate(-22deg); }
+            to   { transform: rotate(-2deg); }
+        }
+
+        @keyframes blade-bottom{
+            from { transform: rotate(22deg); }
+            to   { transform: rotate(2deg); }
+        }
+
+        @keyframes scissors-float{
+            0%, 100% { transform: translateY(0) rotate(-4deg); }
+            50%      { transform: translateY(-2px) rotate(4deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .page-loader__scissors,
+            .page-loader__scissors .blade{
+                animation: none;
+            }
+        }
+
+
+
+
+
 
         .page-loader__title{
             font-weight: 900;
@@ -159,6 +259,10 @@
             color:#111827;
             margin:0;
         }
+
+
+
+
         .page-loader__subtitle{
             font-size: 13px;
             color:#6b7280;
@@ -198,6 +302,14 @@
                 <a href="{{ route('help.index') }}" class="{{ request()->routeIs('help.index') ? 'active' : '' }}">
                     Ayuda
                 </a>
+                @auth
+                    <form method="POST" action="{{ route('logout') }}" style="margin:0;">
+                        @csrf
+                        <button type="submit" class="nav-btn">
+                            Cerrar sesión
+                        </button>
+                    </form>
+                @endauth
             </nav>
         </div>
     </header>
@@ -226,7 +338,19 @@
 
     <div id="pageLoader" class="page-loader" aria-hidden="true">
     <div class="page-loader__card" role="status" aria-live="polite" aria-label="Cargando">
-        <div class="page-loader__spinner"></div>
+
+
+        <div class="page-loader__scissors" aria-hidden="true">
+            <span class="blade blade--top"></span>
+            <span class="blade blade--bottom"></span>
+            <span class="pivot"></span>
+            <span class="handle handle--left"></span>
+            <span class="handle handle--right"></span>
+        </div>
+
+
+
+
         <div>
         <div class="page-loader__title">Cargando…</div>
         <div class="page-loader__subtitle">Por favor espera</div>
@@ -236,7 +360,7 @@
 
     <footer>
         <div class="footer-inner">
-            © {{ date('Y') }} Manos y Tijeras
+            © Manos y Tijeras
         </div>
     </footer>
 
