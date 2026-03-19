@@ -45,20 +45,23 @@
             max-width: 1120px;
             margin: 0 auto;
             padding: 12px 18px;
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             gap: 12px;
+            flex-wrap: wrap;
         }
         .brand{
-            display:flex;
-            align-items:center;
+            display: flex;
+            align-items: center;
             gap: 10px;
-            color:#fff;
-            text-decoration:none;
+            color: #fff;
+            text-decoration: none;
             font-weight: 900;
-            letter-spacing:.2px;
+            letter-spacing: .2px;
+            min-width: 0;
         }
+
         .brand-badge{
             width:34px;
             height:34px;
@@ -72,10 +75,11 @@
         }
 
         .nav{
-            display:flex;
+            display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            align-items:center;
+            align-items: center;
+            justify-content: flex-end;
         }
         .nav a{
             color:#fff;
@@ -284,6 +288,37 @@
             max-width: 1120px;
             margin: 0 auto;
             text-align:center;
+        }
+
+
+
+
+        @media (max-width: 640px){
+            .header-inner{
+                flex-direction: column;
+                align-items: stretch;
+                padding: 14px 16px;
+            }
+
+            .brand{
+                width: 100%;
+                justify-content: flex-start;
+                font-size: 24px;
+                line-height: 1.15;
+            }
+
+            .nav{
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .nav a,
+            .nav-btn{
+                min-height: 42px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
         }
     </style>
 </head>
